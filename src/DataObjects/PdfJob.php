@@ -10,7 +10,7 @@ readonly class PdfJob
         public string $jobId,
         public string $status,
         public ?string $message = null,
-        public ?string $filePath = null,
+        public ?string $fileName = null,
         public ?int $fileSize = null,
         public ?string $downloadUrl = null,
         public ?string $errorMessage = null,
@@ -26,10 +26,10 @@ readonly class PdfJob
     public static function fromArray(array $data): self
     {
         return new self(
-            jobId: $data['job_id'],
+            jobId: $data['id'],
             status: $data['status'],
             message: $data['message'] ?? null,
-            filePath: $data['file_path'] ?? null,
+            fileName: $data['filename'] ?? null,
             fileSize: $data['file_size'] ?? null,
             downloadUrl: $data['download_url'] ?? null,
             errorMessage: $data['error_message'] ?? null,
@@ -88,7 +88,7 @@ readonly class PdfJob
             'job_id' => $this->jobId,
             'status' => $this->status,
             'message' => $this->message,
-            'file_path' => $this->filePath,
+            'file_path' => $this->fileName,
             'file_size' => $this->fileSize,
             'download_url' => $this->downloadUrl,
             'error_message' => $this->errorMessage,
