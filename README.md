@@ -12,7 +12,7 @@ A modern PHP SDK for the Pdfy.app PDF Generation API, built with Laravel's HTTP 
 Install the package via Composer:
 
 ```bash
-composer require pdfy/sdk
+composer require pdfy/php-sdk
 ```
 
 ## Features
@@ -39,7 +39,17 @@ Add your API key to your `.env` file:
 
 ```env
 PDFY_API_KEY=your_api_key_here
+```
+
+Override the `BASE_URL` if you need:
+
+```env
 PDFY_BASE_URL=https://pdfy.app/api/v1
+```
+
+You can set the timeout for how long the synchronous "create and download" method should wait for the PDF to be generated:
+
+```env
 PDFY_TIMEOUT=30
 ```
 
@@ -190,25 +200,6 @@ try {
 - `isFailed()` - Check if job failed
 - `isProcessing()` - Check if job is still processing
 - `getStatusLabel()` - Get human-readable status
-
-## Modern PHP Features
-
-This SDK leverages the latest PHP 8.4 features:
-
-- **Strict Types**: All files use `declare(strict_types=1)` for better type safety
-- **Readonly Classes**: Data objects use `readonly class` for immutability
-- **Constructor Property Promotion**: Clean, concise constructors
-- **Named Arguments**: Support for named parameters in method calls
-- **Match Expressions**: Modern pattern matching for cleaner code
-- **PHPUnit Attributes**: Uses `#[Test]` attributes instead of docblock annotations
-
-## Laravel 12 Compatibility
-
-Fully compatible with Laravel 12's latest features:
-- Auto-discovery service provider
-- Modern facade implementation
-- Configuration publishing
-- Environment variable integration
 
 ## Development
 
