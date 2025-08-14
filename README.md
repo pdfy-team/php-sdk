@@ -1,6 +1,6 @@
 # Pdfy PHP SDK
 
-A modern PHP SDK for the Pdfy.app PDF Generation API, built with Laravel's HTTP Client.
+A modern PHP SDK for the [pdfy.app](https://pdfy.app) PDF Generation API, built with Laravel's HTTP Client.
 
 ## Requirements
 
