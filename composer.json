@@ -1,0 +1,51 @@
+{
+    "name": "pdfy/php-sdk",
+    "version": "1.0.0",
+    "description": "PHP SDK for Pdfy.app PDF Generation API",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Pdfy Team",
+            "email": "support@pdfy.app"
+        }
+    ],
+    "require": {
+        "php": "^8.4",
+        "illuminate/http": "^11.0|^12.0",
+        "illuminate/support": "^11.0|^12.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^11.0",
+        "orchestra/testbench": "^9.0|^10.0",
+        "laravel/pint": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Pdfy\\Sdk\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Pdfy\\Sdk\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Pdfy\\Sdk\\PdfyServiceProvider"
+            ],
+            "aliases": {
+                "Pdfy": "Pdfy\\Sdk\\Facades\\Pdfy"
+            }
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage",
+        "format": "vendor/bin/pint",
+        "format-test": "vendor/bin/pint --test"
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
