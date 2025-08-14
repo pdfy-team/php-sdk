@@ -56,7 +56,7 @@ class PdfResource
      */
     public function status(string $jobId): PdfJob
     {
-        $response = $this->client->request()->get("/pdfs/{$jobId}/status");
+        $response = $this->client->request()->get("/pdfs/{$jobId}");
         $data = $this->client->handleResponse($response);
 
         return PdfJob::fromArray($data['data']);
