@@ -26,7 +26,7 @@ readonly class PdfJob
     public static function fromArray(array $data): self
     {
         return new self(
-            jobId: $data['id'],
+            jobId: $data['job_id'],
             status: $data['status'],
             message: $data['message'] ?? null,
             fileName: $data['filename'] ?? null,
@@ -97,5 +97,10 @@ readonly class PdfJob
             'completed_at' => $this->completedAt,
             'failed_at' => $this->failedAt,
         ];
+    }
+
+    public function __toArray(): array
+    {
+        return $this->toArray();
     }
 }

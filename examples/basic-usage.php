@@ -91,12 +91,23 @@ try {
     echo 'Error: '.$e->getMessage()."\n";
     echo 'Error Code: '.$e->getErrorCode()."\n";
     echo 'HTTP Status: '.$e->getHttpStatus()."\n";
-    echo 'User Message: '.$e->getUserMessage()."\n";
+    echo 'User-Friendly Message: '.$e->getUserMessage()."\n";
 
+    // Check specific error types
     if ($e->isQuotaExceeded()) {
         echo "You've reached your quota limit!\n";
     } elseif ($e->isRateLimited()) {
         echo "You're being rate limited!\n";
+    } elseif ($e->isChromeError()) {
+        echo "PDF generation service is having issues!\n";
+    } elseif ($e->isTimeoutError()) {
+        echo "PDF generation timed out - try simpler content!\n";
+    } elseif ($e->isMemoryLimitError()) {
+        echo "Content is too complex - please simplify!\n";
+    } elseif ($e->isValidationError()) {
+        echo "There's an issue with your HTML content!\n";
+    } elseif ($e->isPdfNotReady()) {
+        echo "PDF is still being generated - please wait!\n";
     }
 } catch (Exception $e) {
     echo 'Unexpected error: '.$e->getMessage()."\n";

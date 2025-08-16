@@ -87,12 +87,50 @@ class PdfyClientTest extends TestCase
     public function pdfy_exception_user_messages(): void
     {
         $quotaException = new PdfyException('', 402, 'QUOTA_EXCEEDED');
-        $this->assertStringContainsString('reached your PDF generation limit', $quotaException->getUserMessage());
+        $this->assertStringContainsString('Daily PDF limit reached and no credits available', $quotaException->getUserMessage());
 
         $rateException = new PdfyException('', 429, 'RATE_LIMIT_EXCEEDED');
-        $this->assertStringContainsString('making requests too quickly', $rateException->getUserMessage());
+        $this->assertStringContainsString('Too many requests. Please wait before trying again', $rateException->getUserMessage());
 
         $validationException = new PdfyException('', 400, 'INVALID_HTML');
-        $this->assertStringContainsString('HTML content provided is invalid', $validationException->getUserMessage());
+        $this->assertStringContainsString('The provided HTML content is invalid or malformed', $validationException->getUserMessage());
+
+        $chromeException = new PdfyException('', 500, 'CHROME_ERROR');
+        $this->assertStringContainsString('PDF generation service is temporarily unavailable', $chromeException->getUserMessage());
+
+        $timeoutException = new PdfyException('', 408, 'TIMEOUT_ERROR');
+        $this->assertStringContainsString('PDF generation timed out. Please try with simpler content', $timeoutException->getUserMessage());
+    }
+
+    #[Test]
+    public function pdfy_exception_helper_methods(): void
+    {
+        $chromeException = new PdfyException('', 500, 'CHROME_ERROR');
+        $this->assertTrue($chromeException->isChromeError());
+        $this->assertFalse($chromeException->isTimeoutError());
+
+        $timeoutException = new PdfyException('', 408, 'TIMEOUT_ERROR');
+        $this->assertTrue($timeoutException->isTimeoutError());
+        $this->assertFalse($timeoutException->isChromeError());
+
+        $memoryException = new PdfyException('', 507, 'MEMORY_LIMIT_EXCEEDED');
+        $this->assertTrue($memoryException->isMemoryLimitError());
+        $this->assertTrue($memoryException->isServerError());
+
+        $storageException = new PdfyException('', 500, 'STORAGE_ERROR');
+        $this->assertTrue($storageException->isStorageError());
+
+        $notFoundException = new PdfyException('', 404, 'PDF_NOT_FOUND');
+        $this->assertTrue($notFoundException->isPdfNotFound());
+
+        $notReadyException = new PdfyException('', 202, 'PDF_NOT_READY');
+        $this->assertTrue($notReadyException->isPdfNotReady());
+
+        $jobNotFoundException = new PdfyException('', 404, 'JOB_NOT_FOUND');
+        $this->assertTrue($jobNotFoundException->isJobNotFound());
+
+        $internalException = new PdfyException('', 500, 'INTERNAL_ERROR');
+        $this->assertTrue($internalException->isInternalError());
+        $this->assertTrue($internalException->isServerError());
     }
 }
