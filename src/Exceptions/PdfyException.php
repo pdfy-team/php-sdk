@@ -71,7 +71,7 @@ class PdfyException extends Exception
         return in_array($this->errorCode, [
             'INVALID_HTML',
             'HTML_TOO_LARGE',
-            'SECURITY_VIOLATION',
+            'SECURITY_VIOLATION'
         ]);
     }
 
